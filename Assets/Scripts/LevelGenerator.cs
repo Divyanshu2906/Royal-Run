@@ -13,7 +13,7 @@ public class LevelGenerator : MonoBehaviour
 
     void Start() // it will run once will the scene begins
     {
-        SpawnChunks();
+        SpawnStartingChunks();
     }
 
     void Update() // it will run every frame
@@ -21,29 +21,35 @@ public class LevelGenerator : MonoBehaviour
         movechunk();
     }
 
-    void SpawnChunks()
+    void SpawnStartingChunks()
     {
         for (int i = 0; i < startingchunkamount; i++) //for loop
         {
-            float spawnpositionZ = CalculateSpawnPosition(i);
-            Vector3 chunkspawnpos = new Vector3(transform.position.x, transform.position.y, spawnpositionZ); // a new vector3 varibale 
-            GameObject newchunk =  Instantiate(chunkprefab, chunkspawnpos, quaternion.identity, chunkparent);
-
-            chunks.Add(newchunk);
+            SpawnChunk();
         }
     }
 
-    float CalculateSpawnPosition(int i)
+    private void SpawnChunk()
+    {
+        float spawnpositionZ = CalculateSpawnPosition();
+        Vector3 chunkspawnpos = new Vector3(transform.position.x, transform.position.y, spawnpositionZ); // a new vector3 varibale 
+        GameObject newchunk = Instantiate(chunkprefab, chunkspawnpos, quaternion.identity, chunkparent);
+
+        chunks.Add(newchunk);
+    }
+
+    float CalculateSpawnPosition()
     {
         float spawnpositionZ; // stores the z position where the chunk will be loaded
 
-        if (i == 0)
+        if (chunks.Count == 0)
         {
             spawnpositionZ = transform.position.z; // if transform is (0,0,0) then the first chunk will be exactly where the generator object is
         }
         else
         {
-            spawnpositionZ = transform.position.z + (i * chunklength); // else the chunk will be loaded at every interval of 10
+            //spawnpositionZ = transform.position.z + (i * chunklength); // else the chunk will be loaded at every interval of 10
+            spawnpositionZ = chunks[chunks.Count - 1].transform.position.z + chunklength;
         }
 
         return spawnpositionZ;
@@ -53,7 +59,15 @@ public class LevelGenerator : MonoBehaviour
     {
         for (int i = 0; i < chunks.Count; i++)
         {
-            chunks[i] .transform.Translate(-transform.forward * (movespeed * Time.deltaTime));
+            GameObject chunk = chunks[i];
+            chunk.transform.Translate(-transform.forward * (movespeed * Time.deltaTime)); 
+
+            if(chunk.transform.position.z <= Camera.main.transform.position.z)
+            {
+                chunks.Remove(chunk);
+                Destroy(chunk);
+                SpawnChunk();
+            }
         }
     }
 }
