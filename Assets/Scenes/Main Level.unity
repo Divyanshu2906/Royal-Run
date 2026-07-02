@@ -505,11 +505,13 @@ GameObject:
   m_Component:
   - component: {fileID: 710012407}
   - component: {fileID: 710012409}
+  - component: {fileID: 710012411}
   - component: {fileID: 710012408}
   - component: {fileID: 710012410}
+  - component: {fileID: 710012412}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -618,6 +620,41 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &710012411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710012406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 106a8228fb496a940b28edb240641552, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCollision
+--- !u!136 &710012412
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710012406}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.35
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.83, z: 0}
 --- !u!1 &786364232
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,8 +684,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90293dabc6d62d5419dd9e104d0abbeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObstacleSpawner
-  obstacleprefab: {fileID: 7427479392150306083, guid: cc7618b36411048458c9d54ab49a33d1, type: 3}
-  waittime: 3
+  obstacleprefabs:
+  - {fileID: 7427479392150306083, guid: cc7618b36411048458c9d54ab49a33d1, type: 3}
+  - {fileID: 5974555256120364818, guid: 6810d075908902148b8cbac8887640a8, type: 3}
+  - {fileID: 5454039648238347073, guid: bc18371fce937aa478914f2d546773ae, type: 3}
+  - {fileID: 4111656214589755439, guid: cf2a5cb7fa91bc6408316d057e94d9ba, type: 3}
+  - {fileID: 8723030427567384463, guid: dd359291f2d6d00448680221ff9cb730, type: 3}
+  waittime: 1.5
+  obstacleparent: {fileID: 81964234}
+  SpawnWidth: 4
 --- !u!4 &786364234
 Transform:
   m_ObjectHideFlags: 0
@@ -658,7 +702,7 @@ Transform:
   m_GameObject: {fileID: 786364232}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.49845, y: 1, z: 40}
+  m_LocalPosition: {x: 0, y: 5, z: 40}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -775,6 +819,72 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dcbc89efbe5bd174b99e07c76bd0b6bf, type: 3}
+--- !u!1 &2119471330
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2119471333}
+  - component: {fileID: 2119471332}
+  - component: {fileID: 2119471331}
+  m_Layer: 0
+  m_Name: Obstacle Destroy Trigger Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &2119471331
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119471330}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2119471332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119471330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41a7b1f06aa839044ad51cb9875f74db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObstacleDestroy
+--- !u!4 &2119471333
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119471330}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -30, z: 70}
+  m_LocalScale: {x: 300, y: 10, z: 500}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -786,3 +896,4 @@ SceneRoots:
   - {fileID: 484626171}
   - {fileID: 81964234}
   - {fileID: 786364234}
+  - {fileID: 2119471333}
