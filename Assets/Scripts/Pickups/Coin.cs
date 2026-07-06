@@ -2,8 +2,15 @@ using UnityEngine;
 
 public class Coin : Pickup
 {
+    [SerializeField] int ScoreAmount = 100;
+    ScoreManager scoreManager;
+
+    public void Init(ScoreManager scoreManager)
+    {
+        this.scoreManager = scoreManager;
+    }
     protected override void OnPickup()
     {
-        Debug.Log("Add 100 points");
+        scoreManager.IncreaseScore(ScoreAmount);
     }
 }

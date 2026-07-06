@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+public class Chunk : MonoBehaviour
 {
     [SerializeField] GameObject FencePrefab;
     [SerializeField] GameObject ApplePrefab;
@@ -11,6 +11,8 @@ public class NewMonoBehaviourScript : MonoBehaviour
     [SerializeField] float AppleSpawnChance = .3f;
     [SerializeField] float CoinSpawnChance = .5f;
     [SerializeField] float[] lanes = {-2.5f, 0f, 2.5f};
+    LevelGenerator levelGenerator;
+    ScoreManager scoreManager;
     List<int>availabeLanes = new List<int> {0,1,2};
 
     void Start()
@@ -18,6 +20,12 @@ public class NewMonoBehaviourScript : MonoBehaviour
         SpawnFence();
         SpawnApples();
         SpawnCoins();
+    }
+
+    public void Init(LevelGenerator levelGenerator, ScoreManager scoreManager)
+    {
+        this.levelGenerator = levelGenerator;
+        this.scoreManager = scoreManager;
     }
 
     void SpawnFence()
@@ -46,7 +54,8 @@ public class NewMonoBehaviourScript : MonoBehaviour
        int SelectedLane = SelectLane(availabeLanes);
 
        Vector3 SpawnPosition = new Vector3(lanes[SelectedLane], transform.position.y, transform.position.z);
-       Instantiate(ApplePrefab, SpawnPosition, Quaternion.identity, this.transform); 
+       Apple newApple = Instantiate(ApplePrefab, SpawnPosition, Quaternion.identity, this.transform).GetComponent<Apple>();
+       newApple.Init(levelGenerator);
     }
 
      void SpawnCoins()
@@ -62,7 +71,8 @@ public class NewMonoBehaviourScript : MonoBehaviour
        {
             float SpawnPositionZ = TopOfChunkPos - (i * CoinSeperationLength);
             Vector3 SpawnPosition = new Vector3(lanes[SelectedLane], transform.position.y, SpawnPositionZ);
-            Instantiate(CoinPrefab, SpawnPosition, Quaternion.identity, this.transform); 
+            Coin newcoin = Instantiate(CoinPrefab, SpawnPosition, Quaternion.identity, this.transform).GetComponent<Coin>();
+            newcoin.Init(scoreManager); 
        }
 
     }
