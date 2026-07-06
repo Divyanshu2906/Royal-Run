@@ -166,10 +166,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1534437476836471186, guid: 2ef29c2670fbcf74b8664a6bc369bebe, type: 3}
       propertyPath: m_Name
-      value: LightPost Left
+      value: LightPost Right
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2827440479972188673, guid: 2ef29c2670fbcf74b8664a6bc369bebe, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7804062666031958169, guid: 2ef29c2670fbcf74b8664a6bc369bebe, type: 3}
       insertIndex: 0

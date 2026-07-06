@@ -26,12 +26,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void IncreaseTime(float amount)
+    {
+        timeleft += amount;
+
+    }
+
     public bool returngameover()
     {
         return gameover;
     }
 
-    private bool DecreaseTime()
+    bool DecreaseTime()
     {
         if (gameover) return false;
         timeleft -= Time.deltaTime;
